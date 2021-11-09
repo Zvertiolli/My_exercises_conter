@@ -1,10 +1,10 @@
 package space.zverevalexandr.myexercisesconter;
 
 public class Store {
-    public static int mCountPush=0;
-    public static int mCountPull = 0;
-    public static int mCountSquats = 0;
-    public static int mCountJumping = 0;
+    public static int mCountPush;
+    public static int mCountPull;
+    public static int mCountSquats;
+    public static int mCountJumping;
     public static int mPlanPush = 200;
     public static int mPlanPull = 50;
     public static int mPlanSquats = 100;

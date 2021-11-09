@@ -1,5 +1,7 @@
 package space.zverevalexandr.myexercisesconter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +18,10 @@ import space.zverevalexandr.myexercisesconter.model.Exercise;
 public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
 
-    RecyclerView exerciseRecycler;
-    ExerciseAdapter exerciseAdapter;
+    private RecyclerView mExerciseRecycler;
+    private ExerciseAdapter mExerciseAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,20 +29,22 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chootsing_an_exercise);
 
         List<Exercise> exerciseList = new ArrayList<>();
-        exerciseList.add(new Exercise(1, "Отжимания", Store.getmCountPush(),Store.getmPlanPush()));
+        exerciseList.add(new Exercise(1, "Отжимания", Store.getmCountPush(), Store.getmPlanPush()));
         exerciseList.add(new Exercise(2, "Подтягивания", Store.mCountPull, Store.mPlanPull));
         exerciseList.add(new Exercise(3, "Приседания", Store.mCountSquats, Store.mPlanSquats));
         exerciseList.add(new Exercise(4, "Прыжки", Store.mCountJumping, Store.mPlanJumping));
 
-        setExerciseRecycler(exerciseList);
+        setmExerciseRecycler(exerciseList);
+
+
     }
 
-    private void setExerciseRecycler(List<Exercise> exerciseList) {
+    private void setmExerciseRecycler(List<Exercise> exerciseList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        exerciseRecycler = findViewById(R.id.exerciseRecycler);
-        exerciseRecycler.setLayoutManager(layoutManager);
+        mExerciseRecycler = findViewById(R.id.exerciseRecycler);
+        mExerciseRecycler.setLayoutManager(layoutManager);
 
-        exerciseAdapter = new ExerciseAdapter(this, exerciseList);
-        exerciseRecycler.setAdapter(exerciseAdapter);
+        mExerciseAdapter = new ExerciseAdapter(this, exerciseList);
+        mExerciseRecycler.setAdapter(mExerciseAdapter);
     }
 }
