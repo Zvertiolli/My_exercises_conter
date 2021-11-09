@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/exerciseItem"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:elevation="0dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/exerciseTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_shop__2_"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/app_name"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                tools:layout_editor_absoluteX="186dp"
+                tools:layout_editor_absoluteY="224dp" />
+
+            <TextView
+                android:id="@+id/exerciseCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_shop__3_"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center"
+                android:padding="20dp"
+                android:text="@string/zero"
+                android:textColor="@color/black"
+                android:textSize="26sp"
+                tools:layout_editor_absoluteX="354dp"
+                tools:layout_editor_absoluteY="259dp" />
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
