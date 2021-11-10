@@ -1,6 +1,8 @@
 package space.zverevalexandr.myexercisesconter;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -18,11 +20,17 @@ public class ExerciseActivity extends AppCompatActivity {
     int actualCount = 0;
     int readyCount;
 
+    // имя файла настройки
+    private SharedPreferences mSettings;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise);
+
+        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
+
 
         actualCounter = findViewById(R.id.textViewCount);
         exerciseTitle = findViewById(R.id.exerciseTitle);
@@ -56,6 +64,7 @@ public class ExerciseActivity extends AppCompatActivity {
     public void onClickDone(View view) {
         Intent intent = new Intent(ExerciseActivity.this, ChoosingAnExerciseActivity.class);
         int id = getIntent().getExtras().getInt("id");
+        SharedPreferences.Editor editor = mSettings.edit();
         switch (id) {
             case (1):
                 Store.setmCountPush(readyCount);
@@ -67,9 +76,10 @@ public class ExerciseActivity extends AppCompatActivity {
                 Store.setmCountSquats(readyCount);
                 break;
             case (4):
-                Store.setmCountJumping(readyCount);
+                editor.putInt(MainActivity.APP_PREFERENCES_COUNTER_PUSH, readyCount);
                 break;
         }
+        editor.apply();
         startActivity(intent);
     }
 }

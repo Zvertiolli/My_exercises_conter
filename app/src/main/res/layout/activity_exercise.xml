@@ -85,7 +85,7 @@
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
             android:padding="5dp"
-            android:text="@string/onehundred"
+            android:text="@string/oneHundred"
             android:textColor="#7CB342"
             android:textSize="24sp" />
     </LinearLayout>

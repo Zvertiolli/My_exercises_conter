@@ -20,7 +20,14 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
     private RecyclerView mExerciseRecycler;
     private ExerciseAdapter mExerciseAdapter;
+    public int mPlanSquats = 100;
+    public int mCountSquats;
 
+
+    // имя файла настройки
+    public static final String APP_PREFERENCES = "mySettings";
+    public static final String APP_PREFERENCES_COUNTER_PUSH = "counterPush";
+    private SharedPreferences mSettings;
 
 
     @Override
@@ -28,10 +35,15 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chootsing_an_exercise);
 
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        onResume();
+
         List<Exercise> exerciseList = new ArrayList<>();
+
         exerciseList.add(new Exercise(1, "Отжимания", Store.getmCountPush(), Store.getmPlanPush()));
         exerciseList.add(new Exercise(2, "Подтягивания", Store.mCountPull, Store.mPlanPull));
-        exerciseList.add(new Exercise(3, "Приседания", Store.mCountSquats, Store.mPlanSquats));
+        exerciseList.add(new Exercise(3, "Приседания", mCountSquats, mPlanSquats));
         exerciseList.add(new Exercise(4, "Прыжки", Store.mCountJumping, Store.mPlanJumping));
 
         setmExerciseRecycler(exerciseList);
@@ -47,4 +59,14 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
         mExerciseAdapter = new ExerciseAdapter(this, exerciseList);
         mExerciseRecycler.setAdapter(mExerciseAdapter);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_PUSH)) {
+            Store.mCountJumping = mSettings.getInt(APP_PREFERENCES_COUNTER_PUSH, 0);
+        }
+    }
+
+
 }

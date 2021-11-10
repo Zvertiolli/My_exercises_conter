@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CrowCounter</string>
+    <string name="app_name">MyExercisesCounter</string>
     <string name="todo">TODO</string>
     <string name="textview">0</string>
     <string name="buttonPlus">+</string>
@@ -12,7 +12,7 @@
     <string name="zero">0</string>
     <string name="ready">Сделано</string>
     <string name="from">из</string>
-    <string name="onehundred">100</string>
+    <string name="oneHundred">100</string>
     <string name="start">START</string>
 
 </resources>
