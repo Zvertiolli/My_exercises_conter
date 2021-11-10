@@ -7,18 +7,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
-import java.text.MessageFormat;
 
 public class MainActivity extends AppCompatActivity {
 
     private int count;
-    private Button mButton;
 
     // имя файла настройки
     public static final String APP_PREFERENCES = "mySettings";
-    public static final String APP_PREFERENCES_COUNTER_PUSH = "counterPush";
+    public static final String APP_PREFERENCES_COUNTER_PULL = "counterPull";
+    public static final String APP_PREFERENCES_COUNTERS_PUSH = "counterPush";
+    public static final String APP_PREFERENCES_COUNTER_SQUATS = "counterSquats";
+    public static final String APP_PREFERENCES_COUNTER_JUMPING = "counterJumping";
     private SharedPreferences mSettings;
 
 
@@ -27,18 +26,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mButton =findViewById(R.id.button_count);
-
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         onResume();
-        mButton.setText(MessageFormat.format("{0}", Store.mCountJumping));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (mSettings.contains(APP_PREFERENCES_COUNTER_PUSH)) {
-            Store.mCountJumping = mSettings.getInt(APP_PREFERENCES_COUNTER_PUSH, 0);
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_PULL)) {
+            Store.setmCountPull(mSettings.getInt(APP_PREFERENCES_COUNTER_PULL, 0));
+        }
+        if (mSettings.contains(APP_PREFERENCES_COUNTERS_PUSH)) {
+            Store.setmCountPush(mSettings.getInt(APP_PREFERENCES_COUNTERS_PUSH, 0));
+        }
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_SQUATS)) {
+            Store.setmCountSquats(mSettings.getInt(APP_PREFERENCES_COUNTER_SQUATS, 0));
+        }
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_JUMPING)) {
+            Store.setmCountJumping(mSettings.getInt(APP_PREFERENCES_COUNTER_JUMPING, 0));
         }
     }
 
@@ -46,7 +51,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         SharedPreferences.Editor editor = mSettings.edit();
-        editor.putInt(APP_PREFERENCES_COUNTER_PUSH, Store.mCountJumping);
+        editor.putInt(APP_PREFERENCES_COUNTER_PULL, Store.getmCountPull());
+        editor.putInt(APP_PREFERENCES_COUNTERS_PUSH, Store.getmCountPush());
+        editor.putInt(APP_PREFERENCES_COUNTER_SQUATS, Store.getmCountSquats());
+        editor.putInt(APP_PREFERENCES_COUNTER_JUMPING, Store.getmCountJumping());
         editor.apply();
     }
 
@@ -55,9 +63,4 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void onClickButtonCount(View view) {
-        Store.mCountJumping++;
-        mButton.setText(MessageFormat.format("{0}", Store.mCountJumping));
-
-    }
 }

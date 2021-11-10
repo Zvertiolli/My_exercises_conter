@@ -1,5 +1,10 @@
 package space.zverevalexandr.myexercisesconter;
 
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTERS_PUSH;
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTER_JUMPING;
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTER_PULL;
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTER_SQUATS;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -55,7 +60,6 @@ public class ExerciseActivity extends AppCompatActivity {
         actualCount--;
         actualCounter.setText(MessageFormat.format("{0}", actualCount));
         readyCount--;
-
         readyExercise.setText(MessageFormat.format("{0}", readyCount));
 
 
@@ -67,19 +71,23 @@ public class ExerciseActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = mSettings.edit();
         switch (id) {
             case (1):
-                Store.setmCountPush(readyCount);
+                editor.putInt(APP_PREFERENCES_COUNTER_PULL, readyCount);
                 break;
             case (2):
-                Store.setmCountPull(readyCount);
+                editor.putInt(APP_PREFERENCES_COUNTERS_PUSH, readyCount);
                 break;
             case (3):
-                Store.setmCountSquats(readyCount);
+                editor.putInt(APP_PREFERENCES_COUNTER_SQUATS, readyCount);
                 break;
             case (4):
-                editor.putInt(MainActivity.APP_PREFERENCES_COUNTER_PUSH, readyCount);
+                editor.putInt(APP_PREFERENCES_COUNTER_JUMPING, readyCount);
                 break;
         }
         editor.apply();
         startActivity(intent);
     }
 }
+
+;
+
+

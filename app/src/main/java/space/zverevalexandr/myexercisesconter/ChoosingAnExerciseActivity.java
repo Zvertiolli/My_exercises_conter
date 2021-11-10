@@ -1,5 +1,10 @@
 package space.zverevalexandr.myexercisesconter;
 
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTERS_PUSH;
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTER_JUMPING;
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTER_PULL;
+import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCES_COUNTER_SQUATS;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -20,13 +25,9 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
     private RecyclerView mExerciseRecycler;
     private ExerciseAdapter mExerciseAdapter;
-    public int mPlanSquats = 100;
-    public int mCountSquats;
 
 
     // имя файла настройки
-    public static final String APP_PREFERENCES = "mySettings";
-    public static final String APP_PREFERENCES_COUNTER_PUSH = "counterPush";
     private SharedPreferences mSettings;
 
 
@@ -35,16 +36,16 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chootsing_an_exercise);
 
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         onResume();
 
         List<Exercise> exerciseList = new ArrayList<>();
 
-        exerciseList.add(new Exercise(1, "Отжимания", Store.getmCountPush(), Store.getmPlanPush()));
-        exerciseList.add(new Exercise(2, "Подтягивания", Store.mCountPull, Store.mPlanPull));
-        exerciseList.add(new Exercise(3, "Приседания", mCountSquats, mPlanSquats));
-        exerciseList.add(new Exercise(4, "Прыжки", Store.mCountJumping, Store.mPlanJumping));
+        exerciseList.add(new Exercise(1, "Подтягивания", Store.getmCountPull(), Store.getmPlanPull()));
+        exerciseList.add(new Exercise(2, "Отжимания", Store.getmCountPush(), Store.getmPlanPush()));
+        exerciseList.add(new Exercise(3, "Приседания", Store.getmCountSquats(), Store.getmPlanSquats()));
+        exerciseList.add(new Exercise(4, "Прыжки", Store.getmCountJumping(), Store.getmPlanJumping()));
 
         setmExerciseRecycler(exerciseList);
 
@@ -63,8 +64,17 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (mSettings.contains(APP_PREFERENCES_COUNTER_PUSH)) {
-            Store.mCountJumping = mSettings.getInt(APP_PREFERENCES_COUNTER_PUSH, 0);
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_PULL)) {
+            Store.setmCountPull(mSettings.getInt(APP_PREFERENCES_COUNTER_PULL, 0));
+        }
+        if (mSettings.contains(APP_PREFERENCES_COUNTERS_PUSH)) {
+            Store.setmCountPush(mSettings.getInt(APP_PREFERENCES_COUNTERS_PUSH, 0));
+        }
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_SQUATS)) {
+            Store.setmCountSquats(mSettings.getInt(APP_PREFERENCES_COUNTER_SQUATS, 0));
+        }
+        if (mSettings.contains(APP_PREFERENCES_COUNTER_JUMPING)) {
+            Store.setmCountJumping(mSettings.getInt(APP_PREFERENCES_COUNTER_JUMPING, 0));
         }
     }
 
