@@ -8,6 +8,7 @@ import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCE
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
     private RecyclerView mExerciseRecycler;
     private ExerciseAdapter mExerciseAdapter;
+    private List<Exercise> exerciseList;
 
 
     // имя файла настройки
@@ -40,16 +42,19 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
         onResume();
 
-        List<Exercise> exerciseList = new ArrayList<>();
+        exerciseList = new ArrayList<>();
 
+        fillInTheList();
+
+        setmExerciseRecycler(exerciseList);
+
+    }
+
+    private void fillInTheList() {
         exerciseList.add(new Exercise(1, "Подтягивания", Store.getmCountPull(), Store.getmPlanPull()));
         exerciseList.add(new Exercise(2, "Отжимания", Store.getmCountPush(), Store.getmPlanPush()));
         exerciseList.add(new Exercise(3, "Приседания", Store.getmCountSquats(), Store.getmPlanSquats()));
         exerciseList.add(new Exercise(4, "Прыжки", Store.getmCountJumping(), Store.getmPlanJumping()));
-
-        setmExerciseRecycler(exerciseList);
-
-
     }
 
     private void setmExerciseRecycler(List<Exercise> exerciseList) {
@@ -76,6 +81,23 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
         if (mSettings.contains(APP_PREFERENCES_COUNTER_JUMPING)) {
             Store.setmCountJumping(mSettings.getInt(APP_PREFERENCES_COUNTER_JUMPING, 0));
         }
+    }
+
+
+    public void onClickResetButton(View view) {
+        SharedPreferences.Editor editor = mSettings.edit();
+        editor.putInt(APP_PREFERENCES_COUNTER_PULL, 0);
+        editor.putInt(APP_PREFERENCES_COUNTERS_PUSH, 0);
+        editor.putInt(APP_PREFERENCES_COUNTER_SQUATS, 0);
+        editor.putInt(APP_PREFERENCES_COUNTER_JUMPING, 0);
+        editor.apply();
+
+        onResume();
+        exerciseList.clear();
+        fillInTheList();
+        setmExerciseRecycler(exerciseList);
+
+
     }
 
 

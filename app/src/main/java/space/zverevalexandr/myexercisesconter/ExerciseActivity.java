@@ -67,6 +67,17 @@ public class ExerciseActivity extends AppCompatActivity {
 
     public void onClickDone(View view) {
         Intent intent = new Intent(ExerciseActivity.this, ChoosingAnExerciseActivity.class);
+        saveCounts();
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        saveCounts();
+    }
+
+    private void saveCounts() {
         int id = getIntent().getExtras().getInt("id");
         SharedPreferences.Editor editor = mSettings.edit();
         switch (id) {
@@ -84,10 +95,8 @@ public class ExerciseActivity extends AppCompatActivity {
                 break;
         }
         editor.apply();
-        startActivity(intent);
     }
 }
 
-;
 
 
