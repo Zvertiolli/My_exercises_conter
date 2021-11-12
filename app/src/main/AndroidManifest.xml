@@ -10,6 +10,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyExercisesCounter">
         <activity
+            android:name=".AboutActivity"
+            android:label="@string/about"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

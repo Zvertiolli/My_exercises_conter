@@ -17,6 +17,7 @@ import java.text.MessageFormat;
 import java.util.List;
 
 import space.zverevalexandr.myexercisesconter.ExerciseActivity;
+import space.zverevalexandr.myexercisesconter.ProgressTextView;
 import space.zverevalexandr.myexercisesconter.R;
 import space.zverevalexandr.myexercisesconter.model.Exercise;
 
@@ -34,14 +35,21 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View exerciseItems = LayoutInflater.from(context).inflate(R.layout.exercise_item, parent, false);
+        View exerciseItems = LayoutInflater.from(context).inflate(R.layout.exercise_item_progress_bar, parent, false);
         return new ExerciseViewHolder(exerciseItems);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final ExerciseViewHolder holder, int position) {
-        holder.exerciseTitle.setText(exerciseList.get(position).getTitle());
-        holder.exerciseCount.setText(MessageFormat.format("{0}", exerciseList.get(holder.getAdapterPosition()).getCount()));
+       // holder.exerciseTitle.setText(exerciseList.get(position).getTitle());
+        holder.progressTextView.setValue(
+                exerciseList.get(position).getId(),
+                exerciseList.get(position).getTitle(),
+                exerciseList.get(position).getCount(),
+                exerciseList.get(position).getPlan()
+                );
+
+        //holder.exerciseCount.setText(MessageFormat.format("{0}", exerciseList.get(holder.getAdapterPosition()).getCount()));
 
         holder.itemView.setOnClickListener(v -> {
 
@@ -61,14 +69,16 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     public static final class ExerciseViewHolder extends RecyclerView.ViewHolder {
 
-        TextView exerciseTitle;
+        //TextView exerciseTitle;
         TextView exerciseCount;
+        ProgressTextView progressTextView;
 
         public ExerciseViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            exerciseTitle = itemView.findViewById(R.id.exerciseTitle);
-            exerciseCount = itemView.findViewById(R.id.exerciseCount);
+            //exerciseTitle = itemView.findViewById(R.id.progressTextView);
+            //exerciseCount = itemView.findViewById(R.id.exerciseCount);
+            progressTextView =itemView.findViewById(R.id.progressTextView);
         }
     }
 }

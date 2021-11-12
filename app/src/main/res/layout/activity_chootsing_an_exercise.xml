@@ -11,17 +11,17 @@
         android:layout_width="355dp"
         android:layout_height="483dp"
         android:layout_marginTop="32dp"
+        android:foregroundGravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/exercise_item_progress_bar" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="50dp" />
+        android:orientation="vertical" />
 
     <ImageButton
         android:id="@+id/imageButtonReset"
@@ -36,4 +36,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_shop__2_"
         tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/reset"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageButtonReset"
+        app:layout_constraintEnd_toEndOf="@+id/imageButtonReset"
+        app:layout_constraintStart_toStartOf="@+id/imageButtonReset"
+        app:layout_constraintTop_toTopOf="@+id/imageButtonReset" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
