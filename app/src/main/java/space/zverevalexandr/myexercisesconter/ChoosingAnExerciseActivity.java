@@ -8,12 +8,11 @@ import static space.zverevalexandr.myexercisesconter.MainActivity.APP_PREFERENCE
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,6 @@ import space.zverevalexandr.myexercisesconter.model.Exercise;
 public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
 
-    private RecyclerView mExerciseRecycler;
-    private ExerciseAdapter mExerciseAdapter;
     private List<Exercise> exerciseList;
 
 
@@ -38,6 +35,8 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chootsing_an_exercise);
 
+        ImageButton mImageButtonReset = findViewById(R.id.imageButtonReset);
+
         mSettings = getSharedPreferences(MainActivity.APP_PREFERENCES, Context.MODE_PRIVATE);
 
         onResume();
@@ -48,6 +47,25 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
         setmExerciseRecycler(exerciseList);
 
+
+        mImageButtonReset.setOnClickListener(view -> {
+
+        });
+
+        mImageButtonReset.setOnLongClickListener(view -> {
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putInt(APP_PREFERENCES_COUNTER_PULL, 0);
+            editor.putInt(APP_PREFERENCES_COUNTERS_PUSH, 0);
+            editor.putInt(APP_PREFERENCES_COUNTER_SQUATS, 0);
+            editor.putInt(APP_PREFERENCES_COUNTER_JUMPING, 0);
+            editor.apply();
+
+            onResume();
+            exerciseList.clear();
+            fillInTheList();
+            setmExerciseRecycler(exerciseList);
+            return true;
+        });
     }
 
     private void fillInTheList() {
@@ -59,10 +77,10 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
 
     private void setmExerciseRecycler(List<Exercise> exerciseList) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.VERTICAL, false);
-        mExerciseRecycler = findViewById(R.id.exerciseRecycler);
+        RecyclerView mExerciseRecycler = findViewById(R.id.exerciseRecycler);
         mExerciseRecycler.setLayoutManager(layoutManager);
 
-        mExerciseAdapter = new ExerciseAdapter(this, exerciseList);
+        ExerciseAdapter mExerciseAdapter = new ExerciseAdapter(this, exerciseList);
         mExerciseRecycler.setAdapter(mExerciseAdapter);
     }
 
@@ -82,23 +100,5 @@ public class ChoosingAnExerciseActivity extends AppCompatActivity {
             Store.setmCountJumping(mSettings.getInt(APP_PREFERENCES_COUNTER_JUMPING, 0));
         }
     }
-
-
-    public void onClickResetButton(View view) {
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putInt(APP_PREFERENCES_COUNTER_PULL, 0);
-        editor.putInt(APP_PREFERENCES_COUNTERS_PUSH, 0);
-        editor.putInt(APP_PREFERENCES_COUNTER_SQUATS, 0);
-        editor.putInt(APP_PREFERENCES_COUNTER_JUMPING, 0);
-        editor.apply();
-
-        onResume();
-        exerciseList.clear();
-        fillInTheList();
-        setmExerciseRecycler(exerciseList);
-
-
-    }
-
 
 }

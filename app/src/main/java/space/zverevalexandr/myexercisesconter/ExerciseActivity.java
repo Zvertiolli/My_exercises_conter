@@ -22,6 +22,7 @@ public class ExerciseActivity extends AppCompatActivity {
     TextView exerciseTitle;
     TextView plan;
     TextView readyExercise;
+    private ProgressTextView progressTextView;
     int actualCount = 0;
     int readyCount;
 
@@ -41,11 +42,16 @@ public class ExerciseActivity extends AppCompatActivity {
         exerciseTitle = findViewById(R.id.exerciseTitle);
         plan = findViewById(R.id.plan);
         readyExercise = findViewById(R.id.readyExercise);
+        progressTextView = findViewById(R.id.progressTextView);
 
         exerciseTitle.setText(getIntent().getExtras().getString("titleExercise"));
         plan.setText(MessageFormat.format("{0}", getIntent().getExtras().getInt("plan")));
         readyCount = getIntent().getExtras().getInt("ready");
         readyExercise.setText(MessageFormat.format("{0}", readyCount));
+        progressTextView.setValue(getIntent().getExtras().getInt("id"),
+                getIntent().getExtras().getString("titleExercise"),
+                getIntent().getExtras().getInt("ready"),
+                getIntent().getExtras().getInt("plan"));
     }
 
     public void onClickButtonPlus(View view) {

@@ -1,8 +1,11 @@
 package space.zverevalexandr.myexercisesconter.adapter;
 
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,11 +57,16 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
         holder.itemView.setOnClickListener(v -> {
 
             Intent intent =new Intent(context, ExerciseActivity.class);
+
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context,
+                    new Pair<View, String>(holder.progressTextView,"progressBarImage"));
+
+
             intent.putExtra("titleExercise",exerciseList.get(holder.getAdapterPosition()).getTitle());
             intent.putExtra("plan",exerciseList.get(holder.getAdapterPosition()).getPlan());
             intent.putExtra("ready",exerciseList.get(holder.getAdapterPosition()).getCount());
             intent.putExtra("id",exerciseList.get(holder.getAdapterPosition()).getId());
-            context.startActivity(intent);
+            context.startActivity(intent, options.toBundle());
         });
     }
 
